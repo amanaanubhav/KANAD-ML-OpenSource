@@ -1,10 +1,5 @@
 """
-Training script for the LSTM irrigation prediction model.
-
-Generates synthetic training data based on known crop water needs and
-environmental factors, then trains the LSTM model.
-
-Run: python train_irrigation.py
+Trains the LSTM irrigation model on synthetic sensor and weather data.
 """
 
 import os
@@ -22,12 +17,7 @@ from app.utils.irrigation_model import (
 )
 
 def generate_training_data(num_samples=5000, seq_length=SEQUENCE_LENGTH):
-    """
-    Generate synthetic training data for the LSTM model.
-
-    Each sample is a sequence of (soil_moisture, temperature, humidity,
-    crop_type_norm, recent_water_usage, rainfall) → (water_needed, duration).
-    """
+    """Generate simulated sequential data for training the LSTM."""
     X = []
     y = []
 
@@ -91,13 +81,11 @@ def generate_training_data(num_samples=5000, seq_length=SEQUENCE_LENGTH):
 
 
 def train_model(epochs=50, batch_size=64, lr=0.001):
-    """Train the LSTM model and save weights."""
-    print("=" * 60)
-    print("KANAD - LSTM Irrigation Model Training")
-    print("=" * 60)
+    """Train and save the LSTM model."""
+    print("Starting LSTM Irrigation Model Training...")
 
     # Generate training data
-    print("\n[1/4] Generating synthetic training data...")
+    print("Generating synthetic training data...")
     X_train, y_train = generate_training_data(num_samples=5000)
     X_val, y_val = generate_training_data(num_samples=1000)
     print(f"  Training samples: {len(X_train)}")
@@ -113,7 +101,7 @@ def train_model(epochs=50, batch_size=64, lr=0.001):
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
 
     # Initialize model
-    print("\n[2/4] Initializing LSTM model...")
+    print("Initializing LSTM model...")
     model = IrrigationLSTM()
     criterion = nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
@@ -124,7 +112,7 @@ def train_model(epochs=50, batch_size=64, lr=0.001):
     print(f"  Architecture: {model.num_layers} LSTM layers, hidden={model.hidden_size}")
 
     # Training loop
-    print(f"\n[3/4] Training for {epochs} epochs...")
+    print(f"Training for {epochs} epochs...")
     best_val_loss = float('inf')
 
     for epoch in range(epochs):
@@ -164,7 +152,7 @@ def train_model(epochs=50, batch_size=64, lr=0.001):
             best_val_loss = val_loss
 
     # Save model
-    print(f"\n[4/4] Saving model...")
+    print(f"Saving model to {model_path}")
     model_dir = os.path.dirname(__file__)
     model_path = os.path.join(model_dir, 'irrigation_lstm.pth')
     torch.save(model.state_dict(), model_path)
@@ -175,13 +163,11 @@ def train_model(epochs=50, batch_size=64, lr=0.001):
     print(f"  Best validation loss: {best_val_loss:.4f}")
 
     # Generate demo sensor data
-    print("\n[Bonus] Generating demo sensor data...")
+    print("Generating demo sensor data for dashboard...")
     from app.utils.irrigation_store import generate_demo_sensor_data
     generate_demo_sensor_data(days=14)
 
-    print("\n" + "=" * 60)
-    print("Training complete! Model is ready for deployment.")
-    print("=" * 60)
+    print("Training complete. Model saved.")
 
 
 if __name__ == '__main__':

@@ -31,9 +31,18 @@ export default function FertilizerPage() {
   const maxNPK = 140;
 
   return (
-    <div className="animate-fade-in">
+    <div className="fade-in">
       <div className="page-header">
-        <h1 className="page-title">🧪 Fertilizer Recommendation</h1>
+        <h1 className="page-title">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{color: 'var(--color-amber-600)'}}>
+            <path d="M10 2v7.31"></path>
+            <path d="M14 9.3V1.99"></path>
+            <path d="M8.5 2h7"></path>
+            <path d="M14 9.3a6.5 6.5 0 1 1-4 0"></path>
+            <path d="M5.52 16h12.96"></path>
+          </svg>
+          Fertilizer Recommendation
+        </h1>
         <p className="page-subtitle">
           Analyze your soil nutrients and get personalized fertilizer suggestions to optimize crop yield.
         </p>
@@ -77,14 +86,14 @@ export default function FertilizerPage() {
         </div>
 
         <button type="submit" className="btn btn-primary btn-lg btn-full" disabled={loading}>
-          {loading ? 'Analyzing...' : '🧪 Analyze Soil & Recommend'}
+          {loading ? 'Analyzing...' : 'Analyze Soil & Recommend'}
         </button>
       </form>
 
-      {error && <div className="alert alert-error" style={{ marginTop: '1.5rem' }}>⚠️ {error}</div>}
+      {error && <div className="alert alert-error" style={{ marginTop: '1.5rem' }}>Error: {error}</div>}
 
       {result && result.success && (
-        <div className="result-card animate-slide-up" style={{ marginTop: '1.5rem' }}>
+        <div className="result-card" style={{ marginTop: '2rem' }}>
           {/* NPK Chart */}
           <h3 className="section-title">NPK Analysis</h3>
           <div className="npk-chart">
@@ -103,27 +112,27 @@ export default function FertilizerPage() {
               );
             })}
           </div>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', marginBottom: '1.5rem', fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>
-            <span><span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--color-green-500)', borderRadius: 2, marginRight: 6, opacity: 0.7 }}></span>Current</span>
-            <span><span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--color-amber-400)', borderRadius: 2, marginRight: 6 }}></span>Required</span>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', marginBottom: '1.5rem', fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span style={{ display: 'inline-block', width: 14, height: 14, background: 'var(--color-green-500)', borderRadius: 2 }}></span>Current</span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><span style={{ display: 'inline-block', width: 14, height: 14, background: 'var(--color-amber-400)', borderRadius: 2 }}></span>Required</span>
           </div>
 
           {/* Recommendation */}
-          <div style={{ marginTop: '1rem' }}>
+          <div style={{ marginTop: '2rem', paddingTop: '1.5rem', borderTop: '1px solid var(--color-border)' }}>
             <div className="result-title">
               <span className={`result-badge ${result.recommendation?.status === 'high' ? 'warning' : 'danger'}`}>
                 {result.recommendation?.nutrient} — {result.recommendation?.status?.toUpperCase()}
               </span>
             </div>
-            <p style={{ color: 'var(--color-text-secondary)', marginBottom: '1rem', fontSize: '0.95rem' }}>
+            <p style={{ color: 'var(--color-text-secondary)', marginBottom: '1.5rem', fontSize: '1rem', lineHeight: '1.6' }}>
               {result.recommendation?.message}
             </p>
 
-            <h4 className="section-title" style={{ fontSize: '0.9rem' }}>Suggestions</h4>
+            <h4 className="section-title" style={{ fontSize: '1rem', marginBottom: '1rem' }}>Suggestions</h4>
             <ul className="result-list">
               {result.recommendation?.suggestions?.map((s, i) => (
                 <li key={i}>
-                  <strong style={{ color: 'var(--color-green-400)' }}>{s.title}</strong>
+                  <strong style={{ color: 'var(--color-text-primary)' }}>{s.title}</strong>
                   <span style={{ display: 'block', marginTop: '0.25rem' }}>{s.description}</span>
                 </li>
               ))}

@@ -6,11 +6,7 @@ import pickle
 import os
 
 def train_and_save_rf_model():
-    """
-    Trains the Random Forest model for Crop Recommendation and saves it.
-    This replaces the original Jupyter Notebook training logic to fix 
-    scikit-learn version mismatches.
-    """
+    """Trains and serializes the Random Forest classifier for crop recommendation."""
     print("Loading crop recommendation dataset...")
     data_path = os.path.join(os.path.dirname(__file__), '..', 'Data-processed', 'crop_recommendation.csv')
     df = pd.read_csv(data_path)

@@ -34,7 +34,8 @@ export const INDIAN_STATES = [
 export const NAV_ITEMS = [
   { href: '/', label: 'Dashboard', icon: 'dashboard' },
   { href: '/crop-recommend', label: 'Crop Recommendation', icon: 'crop' },
-  { href: '/fertilizer', label: 'Fertilizer', icon: 'fertilizer' },
+  { href: '/fertilizer', label: 'Fertilizer Recommendation', icon: 'fertilizer' },
   { href: '/disease-detect', label: 'Disease Detection', icon: 'disease' },
   { href: '/irrigation', label: 'Smart Irrigation', icon: 'irrigation' },
+  { href: '/about', label: 'About', icon: 'about' },
 ];

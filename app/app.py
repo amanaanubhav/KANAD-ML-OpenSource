@@ -1,18 +1,6 @@
 """
-KANAD Backend API — Flask REST API for Smart Agriculture Platform.
-
-Endpoints:
-  POST /api/crop-predict         — Crop recommendation (Random Forest)
-  POST /api/fertilizer-predict   — Fertilizer recommendation
-  POST /api/disease-predict      — Plant disease detection (ResNet9)
-  POST /api/irrigation/predict   — LSTM irrigation prediction
-  POST /api/irrigation/sensor-data — Record IoT sensor data
-  GET  /api/irrigation/history   — Sensor data history
-  GET  /api/irrigation/summary   — Aggregate stats
-  POST /api/irrigation/schedule  — Create irrigation schedule
-  GET  /api/irrigation/schedules — List schedules
-  DELETE /api/irrigation/schedule/<id> — Delete schedule
-  GET  /api/health               — Health check
+Flask REST API for the KANAD Smart Agriculture Platform.
+Handles crop prediction, fertilizer recommendation, disease detection, and irrigation tracking.
 """
 
 from flask import Flask, request, jsonify
@@ -38,10 +26,7 @@ from utils.irrigation_store import (
     create_schedule, get_schedules, update_schedule, delete_schedule
 )
 
-# ═══════════════════════════════════════════════════════════════════════════════
-# MODEL LOADING
-# ═══════════════════════════════════════════════════════════════════════════════
-
+# Model loading and initialization
 # Disease detection classes
 disease_classes = [
     'Apple___Apple_scab', 'Apple___Black_rot', 'Apple___Cedar_apple_rust',
@@ -67,7 +52,7 @@ disease_classes = [
     'Tomato___Tomato_mosaic_virus', 'Tomato___healthy'
 ]
 
-# Load disease detection model (ResNet9 / PyTorch)
+# Load PyTorch ResNet9 model for disease detection
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 disease_model_path = os.path.join(BASE_DIR, '..', 'models', 'plant_disease_model.pth')
 disease_model = ResNet9(3, len(disease_classes))
@@ -76,7 +61,7 @@ disease_model.load_state_dict(
 )
 disease_model.eval()
 
-# Load crop recommendation model (Random Forest / scikit-learn)
+# Load Random Forest model for crop recommendation
 crop_model_path = os.path.join(BASE_DIR, '..', 'models', 'RandomForest.pkl')
 crop_recommendation_model = pickle.load(open(crop_model_path, 'rb'))
 
@@ -84,10 +69,7 @@ crop_recommendation_model = pickle.load(open(crop_model_path, 'rb'))
 irrigation_model = load_irrigation_model()
 
 
-# ═══════════════════════════════════════════════════════════════════════════════
-# HELPER FUNCTIONS
-# ═══════════════════════════════════════════════════════════════════════════════
-
+# Helpers
 def weather_fetch(city_name):
     """Fetch temperature and humidity for a city from OpenWeatherMap."""
     api_key = config.weather_api_key
@@ -129,15 +111,11 @@ def predict_disease_image(img_bytes):
     return prediction_key
 
 
-# ═══════════════════════════════════════════════════════════════════════════════
-# FLASK APP
-# ═══════════════════════════════════════════════════════════════════════════════
-
+# API Setup
 app = Flask(__name__)
 CORS(app, origins=config.cors_origins, supports_credentials=True)
 
 
-# ─── Health Check ────────────────────────────────────────────────────────────
 
 @app.route('/api/health', methods=['GET'])
 def health_check():
@@ -152,7 +130,6 @@ def health_check():
     })
 
 
-# ─── Crop Recommendation ────────────────────────────────────────────────────
 
 @app.route('/api/crop-predict', methods=['POST'])
 def crop_prediction():
@@ -201,7 +178,6 @@ def crop_prediction():
         return jsonify({"success": False, "error": str(e)}), 500
 
 
-# ─── Fertilizer Recommendation ──────────────────────────────────────────────
 
 @app.route('/api/fertilizer-predict', methods=['POST'])
 def fertilizer_prediction():
@@ -261,7 +237,6 @@ def fertilizer_prediction():
         return jsonify({"success": False, "error": str(e)}), 500
 
 
-# ─── Disease Detection ──────────────────────────────────────────────────────
 
 @app.route('/api/disease-predict', methods=['POST'])
 def disease_detection():
@@ -299,7 +274,6 @@ def disease_detection():
         return jsonify({"success": False, "error": str(e)}), 500
 
 
-# ─── Irrigation Prediction ──────────────────────────────────────────────────
 
 @app.route('/api/irrigation/predict', methods=['POST'])
 def irrigation_prediction():
@@ -332,7 +306,6 @@ def irrigation_prediction():
         return jsonify({"success": False, "error": str(e)}), 500
 
 
-# ─── IoT Sensor Data ────────────────────────────────────────────────────────
 
 @app.route('/api/irrigation/sensor-data', methods=['POST'])
 def sensor_data_endpoint():
@@ -387,7 +360,6 @@ def sensor_summary_endpoint():
         return jsonify({"success": False, "error": str(e)}), 500
 
 
-# ─── Irrigation Schedules ───────────────────────────────────────────────────
 
 @app.route('/api/irrigation/schedule', methods=['POST'])
 def create_schedule_endpoint():
@@ -440,7 +412,6 @@ def delete_schedule_endpoint(schedule_id):
         return jsonify({"success": False, "error": str(e)}), 500
 
 
-# ─── Utility Endpoints ──────────────────────────────────────────────────────
 
 @app.route('/api/crops', methods=['GET'])
 def list_crops():
@@ -466,6 +437,6 @@ def list_diseases():
     return jsonify({"success": True, "diseases": diseases, "count": len(diseases)})
 
 
-# ═══════════════════════════════════════════════════════════════════════════════
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=config.port, debug=False)
