@@ -87,7 +87,7 @@ class IrrigationLSTM(nn.Module):
 def load_irrigation_model(model_path=None):
     """Load the trained LSTM model."""
     if model_path is None:
-        model_path = os.path.join(os.path.dirname(__file__), '..', 'models', 'irrigation_lstm.pth')
+        model_path = os.path.join(os.path.dirname(__file__), '..', '..', 'models', 'irrigation_lstm.pth')
 
     model = IrrigationLSTM()
 

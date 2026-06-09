@@ -68,7 +68,8 @@ disease_classes = [
 ]
 
 # Load disease detection model (ResNet9 / PyTorch)
-disease_model_path = os.path.join('models', 'plant_disease_model.pth')
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+disease_model_path = os.path.join(BASE_DIR, '..', 'models', 'plant_disease_model.pth')
 disease_model = ResNet9(3, len(disease_classes))
 disease_model.load_state_dict(
     torch.load(disease_model_path, map_location=torch.device('cpu'))
@@ -76,7 +77,7 @@ disease_model.load_state_dict(
 disease_model.eval()
 
 # Load crop recommendation model (Random Forest / scikit-learn)
-crop_model_path = os.path.join('models', 'RandomForest.pkl')
+crop_model_path = os.path.join(BASE_DIR, '..', 'models', 'RandomForest.pkl')
 crop_recommendation_model = pickle.load(open(crop_model_path, 'rb'))
 
 # Load LSTM irrigation model
