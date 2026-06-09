@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 import { NAV_ITEMS } from '@/lib/constants';
 
 // SVG Icons tailored for an agriculture theme
@@ -61,12 +62,8 @@ export default function Sidebar() {
       {/* Mobile header */}
       <div className="mobile-header">
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <div className="sidebar-logo-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M11 20A7 7 0 0 1 4 13V8h2a7 7 0 0 1 7 7v5z"></path>
-              <path d="M11 20a7 7 0 0 0 7-7v-5h-2a7 7 0 0 0-7 7v5z"></path>
-              <path d="M11 20v4"></path>
-            </svg>
+          <div className="sidebar-logo-icon" style={{ background: 'transparent' }}>
+            <Image src="/images/logo.png" alt="KANAD Logo" width={40} height={40} />
           </div>
           <span className="sidebar-logo-text">KANAD</span>
         </div>
@@ -97,12 +94,8 @@ export default function Sidebar() {
       {/* Sidebar */}
       <aside className={`sidebar ${mobileOpen ? 'open' : ''}`}>
         <div className="sidebar-logo">
-          <div className="sidebar-logo-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M11 20A7 7 0 0 1 4 13V8h2a7 7 0 0 1 7 7v5z"></path>
-              <path d="M11 20a7 7 0 0 0 7-7v-5h-2a7 7 0 0 0-7 7v5z"></path>
-              <path d="M11 20v4"></path>
-            </svg>
+          <div className="sidebar-logo-icon" style={{ background: 'transparent' }}>
+            <Image src="/images/logo.png" alt="KANAD Logo" width={40} height={40} />
           </div>
           <span className="sidebar-logo-text">KANAD</span>
         </div>

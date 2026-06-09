@@ -4,16 +4,19 @@ export default function HomePage() {
   return (
     <div className="fade-in">
       {/* Hero */}
-      <section className="hero" style={{ marginBottom: '3rem' }}>
-        <h1 className="page-title" style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>
-          KANAD Intelligence
-        </h1>
-        <p className="page-subtitle" style={{ fontSize: '1.1rem', maxWidth: '800px', lineHeight: '1.6' }}>
-          An integrated, data-driven agricultural platform designed to optimize crop yields, detect diseases early, and automate irrigation management through IoT sensors and predictive machine learning.
-        </p>
-        <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-          <Link href="/crop-recommend" className="btn btn-primary btn-lg">Start Analysis</Link>
-          <Link href="/irrigation" className="btn btn-secondary btn-lg">View Irrigation Dashboard</Link>
+      <section className="hero-banner" style={{ backgroundImage: 'url(/images/farm_background_1.jpg)' }}>
+        <div className="hero-banner-overlay"></div>
+        <div className="hero-banner-content">
+          <h1 className="page-title" style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>
+            KANAD Intelligence
+          </h1>
+          <p className="page-subtitle" style={{ fontSize: '1.1rem', maxWidth: '800px', lineHeight: '1.6' }}>
+            An integrated, data-driven agricultural platform designed to optimize crop yields, detect diseases early, and automate irrigation management through IoT sensors and predictive machine learning.
+          </p>
+          <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+            <Link href="/crop-recommend" className="btn btn-primary btn-lg">Start Analysis</Link>
+            <Link href="/irrigation" className="btn btn-secondary btn-lg">View Irrigation Dashboard</Link>
+          </div>
         </div>
       </section>
 
@@ -72,7 +75,10 @@ export default function HomePage() {
       {/* Features */}
       <h2 className="section-title" style={{ marginTop: '3rem', marginBottom: '1.5rem' }}>Core Modules</h2>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
-        <Link href="/crop-recommend" className="card" style={{ textDecoration: 'none' }}>
+        <Link href="/crop-recommend" className="card" style={{ textDecoration: 'none', overflow: 'hidden' }}>
+          <div className="card-image-header" style={{ backgroundImage: 'url(/images/1.jpg)' }}>
+            <div className="card-image-overlay"></div>
+          </div>
           <div className="stat-icon green" style={{ marginBottom: '1rem' }}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
               <path strokeLinecap="round" strokeLinejoin="round" d="M11 20A7 7 0 0 1 4 13V8h2a7 7 0 0 1 7 7v5z"></path>
@@ -86,7 +92,10 @@ export default function HomePage() {
           </p>
         </Link>
 
-        <Link href="/fertilizer" className="card" style={{ textDecoration: 'none' }}>
+        <Link href="/fertilizer" className="card" style={{ textDecoration: 'none', overflow: 'hidden' }}>
+          <div className="card-image-header" style={{ backgroundImage: 'url(/images/2.jpg)' }}>
+            <div className="card-image-overlay"></div>
+          </div>
           <div className="stat-icon amber" style={{ marginBottom: '1rem' }}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
               <path strokeLinecap="round" strokeLinejoin="round" d="M10 2v7.31"></path>
@@ -102,7 +111,10 @@ export default function HomePage() {
           </p>
         </Link>
 
-        <Link href="/disease-detect" className="card" style={{ textDecoration: 'none' }}>
+        <Link href="/disease-detect" className="card" style={{ textDecoration: 'none', overflow: 'hidden' }}>
+          <div className="card-image-header" style={{ backgroundImage: 'url(/images/3.jpg)' }}>
+            <div className="card-image-overlay"></div>
+          </div>
           <div className="stat-icon blue" style={{ marginBottom: '1rem' }}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
               <circle cx="12" cy="12" r="10"></circle>
@@ -116,7 +128,10 @@ export default function HomePage() {
           </p>
         </Link>
 
-        <Link href="/irrigation" className="card" style={{ textDecoration: 'none' }}>
+        <Link href="/irrigation" className="card" style={{ textDecoration: 'none', overflow: 'hidden' }}>
+          <div className="card-image-header" style={{ backgroundImage: 'url(/images/5.jpg)' }}>
+            <div className="card-image-overlay"></div>
+          </div>
           <div className="stat-icon red" style={{ marginBottom: '1rem' }}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z" />

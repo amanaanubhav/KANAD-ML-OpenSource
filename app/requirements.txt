@@ -4,6 +4,7 @@ Flask
 flask-cors
 python-dotenv
 scikit-learn
+--extra-index-url https://download.pytorch.org/whl/cpu
 torch
 torchvision
 requests
